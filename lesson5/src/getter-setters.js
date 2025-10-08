@@ -41,8 +41,6 @@ const person = {
 
 console.log(person.summary());
 
-console.log('--- Updating data ---');
-
 person.fullName = 'John Down';
 person.mainHobby = 'hiking';
 

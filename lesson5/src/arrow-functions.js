@@ -1,5 +1,4 @@
 const sumArrayValues = (arr) => {
-
     if (!Array.isArray(arr)) {
         console.log('The provided value is not an array');
         return;
