@@ -8,8 +8,7 @@ function ensureOk(response) {
 async function fetchWithFallback(primaryUrl, fallbackUrl) {
     try {
         const primaryResponse = await fetch(primaryUrl);
-        ensureOk(primaryResponse);
-        const primaryJson = await primaryResponse.json();
+        const primaryJson = await ensureOk(primaryResponse).json();
         console.log('Successfully received from primary:', primaryUrl);
         return primaryJson;
     } catch (primaryErr) {
@@ -26,8 +25,8 @@ async function fetchWithFallback(primaryUrl, fallbackUrl) {
 
             throw new Error(
                 'Both primary and fallback requests failed.\n' +
-  'Primary error: ' + primaryErr.message + '\n' +
-  'Fallback error: ' + fallbackErr.message
+                    'Primary error: ' + primaryErr.message + '\n' +
+                    'Fallback error: ' + fallbackErr.message
             );
 
         }
