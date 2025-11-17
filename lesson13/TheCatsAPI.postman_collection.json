@@ -84,14 +84,7 @@
 			},
 			"request": {
 				"method": "POST",
-				"header": [
-					{
-						"key": "x-api-key",
-						"value": "live_LvEw3hUTkZREb5nq8TrMordEOCd54fVvgvn8hcpMoH2Bdv0SLjwgP87Iap2BdeLL",
-						"type": "text",
-						"disabled": true
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
@@ -372,7 +365,7 @@
 		"apikey": [
 			{
 				"key": "value",
-				"value": "live_LvEw3hUTkZREb5nq8TrMordEOCd54fVvgvn8hcpMoH2Bdv0SLjwgP87Iap2BdeLL",
+				"value": "{{apiKey}}",
 				"type": "string"
 			},
 			{
@@ -412,10 +405,6 @@
 			"value": ""
 		},
 		{
-			"key": "token",
-			"value": ""
-		},
-		{
 			"key": "image_id",
 			"value": ""
 		},
@@ -425,6 +414,10 @@
 		},
 		{
 			"key": "vote_id",
+			"value": ""
+		},
+		{
+			"key": "apiKey",
 			"value": ""
 		}
 	]
