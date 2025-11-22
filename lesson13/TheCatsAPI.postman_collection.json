@@ -1,0 +1,424 @@
+{
+	"info": {
+		"_postman_id": "042505b0-cedb-4c14-bcd9-d8f26b315178",
+		"name": "TheCatsAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40837239"
+	},
+	"item": [
+		{
+			"name": "Get Favourites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let favourites = pm.response.json();",
+							"",
+							"pm.test(\"Favourites loaded\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Image is in favourites\", () => {",
+							"    let id = pm.environment.get(\"image_id\");",
+							"    let found = favourites.some(f => f.image_id === id);",
+							"    pm.expect(found).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/favourites",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"favourites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Cat Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Valid JSON\", () => {",
+							"    pm.expect(() => pm.response.json()).to.not.throw();",
+							"});",
+							"",
+							"const json = pm.response.json();",
+							"",
+							"pm.test(\"Image ID exists\", () => {",
+							"    pm.expect(json.id, \"image id must exist\").to.exist;",
+							"    pm.expect(json.id).to.not.be.empty;",
+							"});",
+							"",
+							"// Save to collection variable",
+							"pm.collectionVariables.set(\"image_id\", json.id);",
+							"",
+							"pm.test(\"Image ID saved\", () => {",
+							"    pm.expect(pm.collectionVariables.get(\"image_id\")).to.exist;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "The image file to upload (JPG, PNG, or GIF)",
+							"type": "file",
+							"src": "/Users/macbodya/Downloads/cat-7239951_1280.jpg"
+						},
+						{
+							"key": "sub_id",
+							"value": "Forest",
+							"description": "Optional identifier for the upload",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/images/upload",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"images",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add to Favourites",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200 — Favourite created\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const json = pm.response.json();",
+							"",
+							"pm.test(\"Favourite ID exists\", () => {",
+							"    pm.expect(json.id).to.exist;",
+							"});",
+							"",
+							"pm.collectionVariables.set(\"favourite_id\", json.id);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"image_id\": \"{{image_id}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/favourites",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"favourites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vote for Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 201 — Vote created\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const json = pm.response.json();",
+							"",
+							"pm.test(\"Vote ID exists\", () => {",
+							"    pm.expect(json.id).to.exist;",
+							"});",
+							"",
+							"// Save vote id",
+							"pm.collectionVariables.set(\"vote_id\", json.id);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"image_id\": \"{{image_id}}\",\n  \"value\": 1\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/votes",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"votes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Votes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let votes = pm.response.json();",
+							"",
+							"pm.test(\"Votes loaded\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Image has vote\", () => {",
+							"    let id = pm.collectionVariables.get(\"image_id\");",
+							"    let found = votes.some(v => v.image_id === id);",
+							"    pm.expect(found).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/votes",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"votes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200 — Vote deleted\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/votes/{{vote_id}}",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"votes",
+						"{{vote_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Favourite",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200 — Favourite deleted\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/favourites/{{favourite_id}}",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"favourites",
+						"{{favourite_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Uploaded Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Image deleted successfully\", () => {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/images/{{image_id}}",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"images",
+						"{{image_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": ""
+		},
+		{
+			"key": "image_id",
+			"value": ""
+		},
+		{
+			"key": "favourite_id",
+			"value": ""
+		},
+		{
+			"key": "vote_id",
+			"value": ""
+		},
+		{
+			"key": "apiKey",
+			"value": ""
+		}
+	]
+}
