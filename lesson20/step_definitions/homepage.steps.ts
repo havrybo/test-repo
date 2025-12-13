@@ -1,17 +1,18 @@
 import { Then } from '@cucumber/cucumber';
 import { expect } from 'playwright/test';
+import { CustomWorld } from '../worlds/custom-world.ts';
 
-Then('the page title should contain {string}', async function (expectedTitle: string): Promise<void> {
-    const title = await this.page.title();
+Then('the page title should contain {string}', async function (this: CustomWorld, expectedTitle: string): Promise<void> {
+    const title = await this.homePage.getTitle();
     expect(title).toContain(expectedTitle);
 });
 
-Then('I should see the text {string}', async function (expectedText: string): Promise<void> {
-    const body = this.page.locator('body');
+Then('I should see the text {string}', async function (this: CustomWorld, expectedText: string): Promise<void> {
+    const body = this.homePage.getBodyLocator();
     await expect(body).toContainText(expectedText);
 });
 
-Then('I should see the section {string}', async function (sectionName: string): Promise<void> {
-    const heading = this.page.getByRole('heading', { name: sectionName });
-    await expect(heading).toBeVisible();
+Then('I should see the section {string}', async function (this: CustomWorld, sectionName: string): Promise<void> {
+    const isVisible = await this.homePage.isSectionVisible(sectionName);
+    expect(isVisible).toBe(true);
 });

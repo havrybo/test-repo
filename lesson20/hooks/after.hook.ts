@@ -1,9 +1,9 @@
 import { After, Status, ITestCaseHookParameter } from '@cucumber/cucumber';
+import { CustomWorld } from '../worlds/custom-world.ts';
 import fs from 'fs';
 import path from 'path';
 
-After(async function (scenario: ITestCaseHookParameter): Promise<void> {
-
+After(async function (this: CustomWorld, scenario: ITestCaseHookParameter): Promise<void> {
     if (scenario.result?.status === Status.FAILED && this.page) {
         const screenshotDir = 'reports/screenshots';
         if (!fs.existsSync(screenshotDir)) {

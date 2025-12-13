@@ -1,7 +1,7 @@
 module.exports = {
   default: {
     import: [
-      'worlds/world.ts',
+      'main.ts',
       'hooks/index.ts',
       'step_definitions/**/*.ts'
     ],

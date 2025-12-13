@@ -1,7 +1,7 @@
 import { AfterAll } from '@cucumber/cucumber';
-import { closeBrowser } from '../worlds/world.js';
+import { CustomWorld } from '../worlds/custom-world.ts';
 
 AfterAll(async function (): Promise<void> {
     console.log('🛑 Closing browser...');
-    await closeBrowser();
+    await CustomWorld.closeBrowser();
 });

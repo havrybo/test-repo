@@ -9,12 +9,16 @@
         "outDir": "./build",
         "rootDir": ".",
         "declaration": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "allowImportingTsExtensions": true,
+        "noEmit": true
     },
     "include": [
+        "main.ts",
         "worlds/**/*.ts",
         "hooks/**/*.ts",
-        "step_definitions/**/*.ts"
+        "step_definitions/**/*.ts",
+        "pages/**/*.ts"
     ],
     "exclude": [
         "node_modules"
