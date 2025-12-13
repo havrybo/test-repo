@@ -7,3 +7,12 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 .DS_Store
+
+# Allure reports
+# allure-results/
+# allure-report/
+
+# Playwright test results
+# test-results/
+
+# *.log
