@@ -1,0 +1,32 @@
+node_modules/
+.DS_Store
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Auth
+.auth/
+
+# Allure
+allure-results/
+allure-report/
+
+# Environment
+.env
+.env.local
+
+# Debug and Logs
+test_output.txt
+terminal_output.txt
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

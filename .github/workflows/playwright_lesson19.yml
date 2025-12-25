@@ -2,7 +2,7 @@ name: Playwright Tests Lesson 19
 
 on:
   push:
-    branches: [ main, master, lesson22 ]
+    branches: [ main, master ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
