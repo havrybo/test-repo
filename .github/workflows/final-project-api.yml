@@ -37,14 +37,15 @@ jobs:
     - name: Generate Allure Report
       run: npm run report:generate
     - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+      if: {{ !cancelled() }}
       with:
         name: allure-report-api
         path: Final Course Project/allure-report/
         retention-days: 30
     - name: Post Allure Report to PR
       if: github.event_name == 'pull_request'
-      uses: allure-framework/allure-action@v0.5.0
+      uses: allure-framework/allure-action@v1.12.0
       with:
-        report-directory: "Final Course Project/allure-report"
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        allure_results: "Final Course Project/allure-results"
+        allure_report: "Final Course Project/allure-report"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
