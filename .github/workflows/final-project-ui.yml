@@ -42,9 +42,7 @@ jobs:
         retention-days: 30
     - name: Post Allure Report to PR
       if: github.event_name == 'pull_request'
-      uses: allure-framework/allure-github-action@v2
+      uses: allure-framework/allure-action@master
       with:
-        gh_pages: false
-        allure_results: "Final Course Project/allure-results"
-        allure_report: "Final Course Project/allure-report"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        report-directory: "Final Course Project/allure-report"
+        github-token: ${{ secrets.GITHUB_TOKEN }}
