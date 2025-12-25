@@ -3,8 +3,14 @@ name: UI Tests
 on:
   push:
     branches: [ main, master, finalproject ]
+    paths:
+      - 'Final Course Project/**'
+      - '.github/workflows/final-project-ui.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'Final Course Project/**'
+      - '.github/workflows/final-project-ui.yml'
   workflow_dispatch:
 
 permissions:
@@ -33,7 +39,6 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run UI tests
       run: npm run test:ui
-      continue-on-error: true
     - name: Generate Allure Report
       if: always()
       run: npm run report:generate

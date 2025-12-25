@@ -28,10 +28,10 @@ export default defineConfig({
             'allure-playwright',
             {
                 detail: true,
-                outputFolder: 'allure-results',
-                suiteTitle: false
-            }
-        ]
+                outputFolder: process.env.ALLURE_RESULTS_DIR || 'allure-results',
+                suiteTitle: false,
+            },
+        ],
     ],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
