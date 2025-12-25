@@ -48,5 +48,5 @@ jobs:
       uses: allure-framework/allure-action@v1.12.0
       with:
         allure-results: "Final Course Project/allure-results"
-        allure_report: "Final Course Project/allure-report"
+        allure-report: "Final Course Project/allure-report"
         github-token: ${{ secrets.GITHUB_TOKEN }}
