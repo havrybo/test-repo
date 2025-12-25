@@ -48,10 +48,10 @@ jobs:
         name: allure-report-ui
         path: "Final Course Project/allure-report/"
         retention-days: 30
-    - name: Post Allure Report to PR
-      if: always() && github.event_name == 'pull_request'
-      uses: allure-framework/allure-action@v1.12.0
-      with:
-        allure-results: "Final Course Project/allure-results"
-        allure-report: "Final Course Project/allure-report"
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Post Allure Report to PR
+    #   if: always() && github.event_name == 'pull_request'
+    #   uses: allure-framework/allure-action@v1.12.0
+    #   with:
+    #     allure-results: "Final Course Project/allure-results"
+    #     allure-report: "Final Course Project/allure-report"
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
